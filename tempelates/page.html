@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Responsive movie app UI</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<link rel="stylesheet" href="./page.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+<style>
+    @import url(https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Open Sans Light'), local('OpenSans-Light'), url(https://fonts.gstatic.com/s/opensans/v17/mem5YaGs126MiZpBA-UN_r8OUuhs.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Open Sans SemiBold'), local('OpenSans-SemiBold'), url(https://fonts.gstatic.com/s/opensans/v17/mem5YaGs126MiZpBA-UNirkOUuhs.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans Condensed';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Open Sans Condensed Light'), local('OpenSansCondensed-Light'), url(https://fonts.gstatic.com/s/opensanscondensed/v14/z7NFdQDnbTkabZAIOl9il_O6KJj73e7Ff1GhDuXMQg.ttf) format('truetype');
+}
+body {
+  background: #FFF linear-gradient(to bottom, #3F567C, #B5CCC6) no-repeat;
+  font-family: Open Sans, sans-serif;
+}
+a {
+  text-decoration: none;
+  transition-duration: 0.3s;
+}
+a:hover {
+  transition-duration: 0.05s;
+}
+.window-margin {
+  max-width: 1200px;
+  padding: 60px;
+  margin: auto;
+}
+.window {
+  margin: auto;
+  border-radius: 5px;
+  background: #FFF;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+.window .sidebar .top-bar,
+.window .main .top-bar {
+  height: 65px;
+  color: #FFF;
+}
+.window .sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 250px;
+  background: #24282C;
+  transition-duration: 0.3s;
+  color: #DDD;
+}
+.window .sidebar .top-bar {
+  background: #3AB0FF;
+  overflow: hidden;
+}
+.window .sidebar .top-bar .logo {
+  float: left;
+  font-family: Open Sans Condensed, sans-serif;
+  font-size: 40px;
+  line-height: 65px;
+  margin-left: 20px;
+}
+.window .sidebar .search-box {
+  background: #373D41;
+  padding: 20px;
+  position: relative;
+}
+.window .sidebar .search-box input {
+  width: 170px;
+  border: 0;
+  padding: 10px 20px;
+  border-radius: 50px;
+  outline: none;
+  color: #999;
+  transition-duration: 0.3s;
+}
+.window .sidebar .search-box input:focus {
+  color: #333;
+}
+.window .sidebar .search-box input:focus ~ .fa {
+  color: #999;
+}
+.window .sidebar .search-box .fa {
+  position: absolute;
+  top: 31px;
+  right: 35px;
+  color: #CCC;
+  transition-duration: 0.3s;
+  cursor: pointer;
+}
+.window .sidebar .menu {
+  padding-top: 20px;
+}
+.window .sidebar .menu .separator {
+  border-top: 1px solid #111111;
+  border-bottom: 1px solid #353535;
+  margin: 20px;
+}
+.window .sidebar .menu a {
+  color: #DDD;
+  text-decoration: none;
+}
+.window .sidebar .menu a:hover {
+  color: #FFF;
+}
+.window .sidebar .menu .menu-name {
+  text-transform: uppercase;
+  padding: 0 20px;
+  font-size: 14px;
+  margin-top: 5rem;
+  margin-bottom: 10px;
+}
+.window .sidebar .menu > ul.no-bullets > li a:before {
+  content: none !important;
+}
+.window .sidebar .menu > ul > li {
+  list-style: none;
+}
+.window .sidebar .menu > ul > li > a {
+  position: relative;
+  top: -3px;
+  font-size: 14px;
+  padding: 8px 25px;
+  display: block;
+  font-weight: bold;
+}
+.window .sidebar .menu > ul > li > a:before {
+  content: '';
+  height: 9px;
+  width: 9px;
+  border-radius: 50px;
+  display: inline-block;
+  margin-right: 10px;
+  box-shadow: inset 0 0 0 1px #EEE;
+}
+.window .sidebar .menu > ul > li.active {
+  list-style-type: disc;
+  color: #FF3A3A;
+  padding-bottom: 10px;
+}
+.window .sidebar .menu > ul > li.active > a {
+  padding-bottom: 0;
+}
+.window .sidebar .menu > ul > li.active > a:before {
+  background: #FF3A3A;
+  box-shadow: none;
+}
+.window .sidebar .menu > ul > li.active ul {
+  display: block;
+  margin-left: 50px;
+  margin-top: 5px;
+}
+.window .sidebar .menu > ul > li.active ul li.active a {
+  color: #FFF;
+  font-weight: bold;
+}
+.window .sidebar .menu > ul > li.active ul li a {
+  padding: 5px;
+  display: block;
+  font-size: 13px;
+  color: #888;
+}
+.window .sidebar .menu > ul > li.active ul li a:hover {
+  color: #FFF;
+}
+.window .sidebar .menu > ul > li ul {
+  display: none;
+}
+.window .main {
+  margin-left: 250px;
+  transition-duration: 0.3s;
+  position: relative;
+}
+.window .main .top-bar {
+  background: #279CEB;
+}
+.window .main .top-bar .top-menu {
+  height: 65px;
+  overflow: hidden;
+}
+.window .main .top-bar .top-menu .menu-icon {
+  padding: 27px 20px 20px 18px;
+  display: none;
+  cursor: pointer;
+  transition-duration: 0.3s;
+}
+.window .main .top-bar .top-menu .menu-icon:hover {
+  background: #54baff;
+  transition-duration: 0.05s;
+}
+.window .main .top-bar .top-menu .menu-icon .line {
+  height: 2px;
+  width: 20px;
+  background: #FFF;
+  margin-bottom: 4px;
+}
+.window .main .top-bar .top-menu li {
+  float: left;
+  font-size: 14px;
+}
+.window .main .top-bar .top-menu li.active a,
+.window .main .top-bar .top-menu li.active a:hover {
+  background: #3AB0FF;
+  color: #FFF;
+  font-weight: bold;
+}
+.window .main .top-bar .top-menu a {
+  padding: 0 25px;
+  color: #EEE;
+  line-height: 65px;
+  display: block;
+}
+.window .main .top-bar .top-menu a:hover {
+  color: #FFF;
+  background: rgba(58, 176, 255, 0.35);
+}
+
+.genre-name{
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.top-name{
+  margin-left: 23rem;
+  font-family: Open Sans Condensed, sans-serif;
+  font-weight: 200;
+}
+
+.top-name1{
+  font-family: Open Sans Condensed, sans-serif;
+  font-size: 35px;
+}
+
+.movie-image {
+  margin: 5% 40%;
+  width: 80%;
+  position: relative;
+
+}
+
+.movie-title{
+  margin-top: 5%;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.movie-Genre{
+  margin: 10% 0% 2%;
+  font-size: 20px;
+}
+
+.movie-description{
+  margin: 5% 0% 2%;
+  font-size: 20px;
+}
+
+.movie-date{
+  margin: 5% 0% 2%;
+  font-size: 20px;
+}
+
+.movie-time{
+  margin: 5% 0% 2%;
+  font-size: 20px;
+}
+
+.movie-certificate{
+  margin: 5% 0% 2%;
+  font-size: 20px;
+}
+
+.movie-rating{
+  margin: 5% 0% 2%;
+  font-size: 20px;
+}
+
+.movie-actor{
+  margin: 5% 0% 2%;
+  font-size: 20px;
+}
+
+.movie-director{
+  margin: 5% 0% 2%;
+  font-size: 20px;
+}
+
+.movie-writer{
+  margin: 5% 0% 2%;
+  font-size: 20px;
+}
+
+.movie-review{
+  margin: 5% 0% 2%;
+  font-size: 20px;
+}
+
+.heading{
+  font-weight: bold;
+  font-size: 25px;
+  margin-bottom: 1%;
+}
+
+.review-rating{
+  margin: 2% 0% 1% 0%;
+}
+
+.review-review{
+  margin-bottom: 1%;
+}
+
+.review-name{
+  margin-top: 2%;
+}
+
+.movie-container{
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 15%;
+}
+
+</style>
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="window-margin">
+	<div class="window">
+
+		<aside class="sidebar">
+			<div class="top-bar">
+				<p class="logo">IMDB</p>
+			</div>
+
+			<menu class="menu">
+				<p class="menu-name">Movie Genres</p>
+				<ul class="genre-name">
+
+          <li><a href="#">Drama</a></li>
+				  <li><a href="#">Romance</a></li>
+					<li><a href="#">Action</a></li>
+					<li><a href="#">Adventure</a></li>
+					<li><a href="#">Sci-fi</a></li>
+					<li><a href="#">BioGraphy</a></li>
+					<li><a href="#">Crime</a></li>
+          <li><a href="#">Mystery</a></li>
+          <li><a href="#">Fantasy</a></li>
+          <li><a href="#">Thriller</a></li>
+				</ul>
+
+			</menu>
+		</aside>
+
+
+		<div class="main" role="main">
+
+			<div class="top-bar">
+
+
+				<ul class="top-menu">
+
+					<li class="top-name"><a class="top-name1" href="#">Movies & Films</a></li>
+				</ul>
+
+			</div> <!-- top bar -->
+
+
+
+			<div class="movie-list" class="row">
+
+          <div class="movie-title">
+                <h1> {{p[1]}}</h1>
+          </div>
+
+          <div class="movie-image">
+            <img  src="Images/1.jpg" alt="">
+          </div>
+
+      <div class="movie-container">
+
+
+
+          <div class="movie-Genre">
+            <h1 class="heading" style="display:inline;">Genre : </h1><h1 style="display:inline;">Drama</h1>
+          </div>
+
+
+          <div class="movie-description">
+            <h1 class="heading">Description :</h1>
+            <h1>{{ p[2] }}.</h1>
+          </div>
+
+          <div class="movie-date">
+            <h1 class="heading" style="display:inline;">Release Date : </h1><h1 style="display:inline;">{{ p[3] }}</h1>
+          </div>
+
+
+          <div class="movie-time">
+            <h1 class="heading" style="display:inline;">Runtime : </h1><h1 style="display:inline;">{{  p[4]}}</h1>
+          </div>
+
+          <div class="movie-certificate">
+            <h1 class="heading" style="display:inline;">Certificate : </h1><h1 style="display:inline;">{{  p[5]}}</h1>
+          </div>
+
+          <div class="movie-rating">
+            <h1 class="heading" style="display:inline; ">Rating : </h1><h1 style="display:inline;">{{  p[6]}}</h1>
+          </div>
+{#          #}
+{#          <div class="movie-actor">#}
+{#            <h1 class="heading">Actors :</h1>#}
+{#            <h1>Tim Robbins   Morgan Freeman   Bob Guton   </h1>#}
+{#          </div>#}
+{##}
+{#          <div class="movie-director">#}
+{#            <h1 class="heading">Director :</h1>#}
+{#            <h1>Frank Daramont   </h1>#}
+{#          </div>#}
+{##}
+{#          <div class="movie-writer">#}
+{#            <h1 class="heading">Writer :</h1>#}
+{#            <h1>Stephen King   Frank Daramont   </h1>#}
+{#          </div>#}
+{##}
+{#          <div class="movie-review">#}
+{#            <h1 class="heading">Review :</h1>#}
+{#            <h1 class="review-rating">9.5</h1>#}
+{#            <h1 class="review-review">Amazing Movie with an equally amazing suspense</h1>#}
+{#            <h1 class="review-name" style="display:inline;">By : </h1><h1 style="display:inline;">Jack Kalavadia</h1>#}
+{#            <!-- <h1 class="review-year">2019</h1>#}
+{#            <h1 class="review-age">19</h1>#}
+{#            <h1 class="review-country">India</h1> -->#}
+{##}
+{#          </div>#}
+
+      </div>
+
+			</div> <!-- movie list -->
+
+
+		</div> <!-- main -->
+
+	</div> <!-- window -->
+</div> <!-- window margin -->
+<!-- partial -->
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script  src="./script.js"></script>
+
+</body>
+</html>
