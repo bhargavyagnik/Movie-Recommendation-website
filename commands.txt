@@ -1,0 +1,5 @@
+create table movie(movie_id int primary key,movie_title varchar(30),movie_desc varchar(30),release_date date,runtime int ,certificate varchar(5),rating int(1));
+display_movie_small
+display_movie_desc
+display_movie_specific(title)
+movie_actors(moviename)
